@@ -1,8 +1,13 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import {Table, Th, Td, Head, Wrapper } from './WordsList.styled';
+import { Table, Th, Td, Head, Wrapper } from './WordsList.styled';
 
-export default function WordsList({ words, deleteWord, onFilterChange }) {
+export default function WordsList({
+  words,
+  deleteWord,
+  onFilterChange,
+  toggleChecked,
+}) {
   return (
     <Wrapper>
       <TextField
@@ -24,12 +29,16 @@ export default function WordsList({ words, deleteWord, onFilterChange }) {
           </tr>
         </Head>
         <tbody>
-          {words.map(({ id, uaWord, enWord }, index) => 
-            (<tr key={id}>
+          {words.map(({ id, uaWord, enWord, checked }, index) => (
+            <tr key={id}>
               <Td>
-                <input type="checkbox"></input>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggleChecked(id)}
+                ></input>
               </Td>
-              <Td>{index+1}</Td>
+              <Td>{index + 1}</Td>
               <Td>{enWord}</Td>
               <Td>{uaWord}</Td>
               <Td>
@@ -42,8 +51,8 @@ export default function WordsList({ words, deleteWord, onFilterChange }) {
                   Delete
                 </button>
               </Td>
-            </tr>)
-          )}
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Wrapper>
